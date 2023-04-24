@@ -1,0 +1,996 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tekstil Otomasyonu API - OpenAPI 3.0",
+        "license": {
+            "name": "MIT License",
+            "url": "https://mit-license.org/"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000"
+        }
+    ],
+    "tags": [
+        {
+            "name": "musteriler"
+        },
+        {
+            "name": "personeller"
+        },
+        {
+            "name": "urunler"
+        }
+    ],
+    "paths": {
+        "/personeller": {
+            "post": {
+                "tags": [
+                    "personeller"
+                ],
+                "summary": "Personel oluşturur.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PersonelWithoutID"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "İşlem başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Personel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Personel bilgileri eksik."
+                    },
+                    "500": {
+                        "description": "Personel Kaydedilemedi."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "personeller"
+                ],
+                "summary": "Tüm personelleri getirir.",
+                "responses": {
+                    "200": {
+                        "description": "Personeller Getirildi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Personel"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Personel bulunamadı."
+                    }
+                }
+            }
+        },
+        "/personeller/{id}": {
+            "get": {
+                "tags": [
+                    "personeller"
+                ],
+                "summary": "ID bilgisine göre personel getirir.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "İstenen personelin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "İstenen personel getirildi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Personel"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Personel bulunamadı."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "personeller"
+                ],
+                "summary": "Personel günceller.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Güncellenecek personelin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PersonelWithoutID"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Personel Güncellendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Personel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Personel Bulunamadı."
+                    },
+                    "500": {
+                        "description": "Personel Güncellenemedi."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "personeller"
+                ],
+                "summary": "Personel siler.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Silinmek istenen personelin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "İstenen personel silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Personel"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Personel bulunamadı."
+                    },
+                    "500": {
+                        "description": "Personel silinemedi."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "personeller"
+                ],
+                "summary": "Personel günceller.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Güncellenecek personelin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PersonelWithoutID"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "İşlem başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Personel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Personel bilgileri eksik."
+                    },
+                    "500": {
+                        "description": "Personel Kaydedilemedi."
+                    }
+                }
+            }
+        },
+        "/musteriler": {
+            "post": {
+                "tags": [
+                    "musteriler"
+                ],
+                "summary": "Müşteri oluşturur.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MusteriWithoutID"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Müşteri Oluşturuldu.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Musteri"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Müşteri bilgileri eksik."
+                    },
+                    "500": {
+                        "description": "Müşteri Kaydedilemedi."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "musteriler"
+                ],
+                "summary": "Tüm müşterileri Getirir",
+                "responses": {
+                    "200": {
+                        "description": "Müşteriler Getirildi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Musteri"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Müşteriler bulunamadı."
+                    }
+                }
+            }
+        },
+        "/musteriler/{id}": {
+            "get": {
+                "tags": [
+                    "musteriler"
+                ],
+                "summary": "ID bilgisine göre müşteri getirir.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "İstenen müşterinin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "İstenen müşteri getirildi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Musteri"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Müşteri bulunamadı."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "musteriler"
+                ],
+                "summary": "Müşteri günceller.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Güncellenecek müşterinin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MusteriWithoutID"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Müşteri Güncellendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Musteri"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Müşteri Bulunamadı."
+                    },
+                    "500": {
+                        "description": "Müşteri Güncellenemedi."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "musteriler"
+                ],
+                "summary": "Müşteri siler.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Silinmek istenen müşterinin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "İstenen müşteri silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Musteri"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Müşteri bulunamadı."
+                    },
+                    "500": {
+                        "description": "Müşteri silinemedi."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "musteriler"
+                ],
+                "summary": "Müşteri günceller.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Güncellenecek müşterinin ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MusteriWithoutID"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "İşlem başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Musteri"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Müşteri bilgileri eksik."
+                    },
+                    "500": {
+                        "description": "Müşteri Kaydedilemedi."
+                    }
+                }
+            }
+        },
+        "/urunler": {
+            "post": {
+                "tags": [
+                    "urunler"
+                ],
+                "summary": "Ürün oluşturur.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UrunWithoutID"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "İşlem başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Urun"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ürün bilgileri eksik."
+                    },
+                    "500": {
+                        "description": "Ürün Kaydedilemedi."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "urunler"
+                ],
+                "summary": "Ürünleri Getirir",
+                "responses": {
+                    "200": {
+                        "description": "Ürünler Getirildi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Urun"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ürünler bulunamadı."
+                    }
+                }
+            }
+        },
+        "/urunler/{id}": {
+            "get": {
+                "tags": [
+                    "urunler"
+                ],
+                "summary": "ID bilgisine göre ürün getirir.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "İstenen ürünün ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "İstenen ürün getirildi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Urun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ürün bulunamadı."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "urunler"
+                ],
+                "summary": "Ürün günceller.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Güncellenecek ürünün ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UrunWithoutID"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün Güncellendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Urun"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ürün Bulunamadı."
+                    },
+                    "500": {
+                        "description": "Ürün Güncellenemedi."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "urunler"
+                ],
+                "summary": "Ürün siler.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Silinmek istenen ürünün ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "İstenen ürün silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Urun"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ürün bulunamadı."
+                    },
+                    "500": {
+                        "description": "Ürün silinemedi."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "urunler"
+                ],
+                "summary": "Ürün günceller.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Güncellenecek ürünün ID bilgisi",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UrunWithoutID"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "İşlem başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Urun"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ürün bilgileri eksik."
+                    },
+                    "500": {
+                        "description": "Ürün Kaydedilemedi."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Musteri": {
+                "required": [
+                    "musteri_id",
+                    "ad",
+                    "soyad",
+                    "unvan",
+                    "adres",
+                    "sehir",
+                    "ulke",
+                    "telefon",
+                    "sirket_ad"
+                ],
+                "type": "object",
+                "properties": {
+                    "musteri_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 12
+                    },
+                    "ad": {
+                        "type": "string",
+                        "example": "Taha"
+                    },
+                    "soyad": {
+                        "type": "string",
+                        "example": "Muslu"
+                    },
+                    "unvan": {
+                        "type": "string",
+                        "example": "Yönetici"
+                    },
+                    "adres": {
+                        "type": "string",
+                        "example": "Akasya mahallesi 123. sokak NO:12 D:3 Kadıköy"
+                    },
+                    "sehir": {
+                        "type": "string",
+                        "example": "İstanbul"
+                    },
+                    "ulke": {
+                        "type": "string",
+                        "example": "Türkiye"
+                    },
+                    "telefon": {
+                        "type": "string",
+                        "example": "532-123-4567"
+                    },
+                    "sirket_ad": {
+                        "type": "string",
+                        "example": "X Company"
+                    }
+                }
+            },
+            "MusteriWithoutID": {
+                "required": [
+                    "ad",
+                    "soyad",
+                    "unvan",
+                    "adres",
+                    "sehir",
+                    "ulke",
+                    "telefon",
+                    "sirket_ad"
+                ],
+                "type": "object",
+                "properties": {
+                    "ad": {
+                        "type": "string",
+                        "example": "Taha"
+                    },
+                    "soyad": {
+                        "type": "string",
+                        "example": "Muslu"
+                    },
+                    "unvan": {
+                        "type": "string",
+                        "example": "Yönetici"
+                    },
+                    "adres": {
+                        "type": "string",
+                        "example": "Akasya mahallesi 123. sokak NO:12 D:3 Kadıköy"
+                    },
+                    "sehir": {
+                        "type": "string",
+                        "example": "İstanbul"
+                    },
+                    "ulke": {
+                        "type": "string",
+                        "example": "Türkiye"
+                    },
+                    "telefon": {
+                        "type": "string",
+                        "example": "532-123-4567"
+                    },
+                    "sirket_ad": {
+                        "type": "string",
+                        "example": "X Company"
+                    }
+                }
+            },
+            "Personel": {
+                "required": [
+                    "personel_id",
+                    "ad",
+                    "soyad",
+                    "ise_baslama_tarih",
+                    "unvan",
+                    "adres",
+                    "sehir",
+                    "ulke",
+                    "telefon",
+                    "dogum_tarihi",
+                    "maas",
+                    "cinsiyet"
+                ],
+                "type": "object",
+                "properties": {
+                    "personel_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 14
+                    },
+                    "ad": {
+                        "type": "string",
+                        "example": "Taha"
+                    },
+                    "soyad": {
+                        "type": "string",
+                        "example": "Muslu"
+                    },
+                    "ise_baslama_tarih": {
+                        "type": "string",
+                        "example": "2020-10-01"
+                    },
+                    "unvan": {
+                        "type": "string",
+                        "example": "Yönetici"
+                    },
+                    "adres": {
+                        "type": "string",
+                        "example": "Akasya mahallesi 123. sokak NO:12 D:3 Kadıköy"
+                    },
+                    "sehir": {
+                        "type": "string",
+                        "example": "İstanbul"
+                    },
+                    "ulke": {
+                        "type": "string",
+                        "example": "Türkiye"
+                    },
+                    "telefon": {
+                        "type": "string",
+                        "example": "532-123-4567"
+                    },
+                    "dogum_tarihi": {
+                        "type": "string",
+                        "example": "1998-10-01"
+                    },
+                    "maas": {
+                        "type": "number",
+                        "example": 5000
+                    },
+                    "cinsiyet": {
+                        "type": "string",
+                        "example": "E"
+                    }
+                }
+            },
+            "PersonelWithoutID": {
+                "required": [
+                    "ad",
+                    "soyad",
+                    "ise_baslama_tarih",
+                    "unvan",
+                    "adres",
+                    "sehir",
+                    "ulke",
+                    "telefon",
+                    "dogum_tarihi",
+                    "maas",
+                    "cinsiyet"
+                ],
+                "type": "object",
+                "properties": {
+                    "ad": {
+                        "type": "string",
+                        "example": "Taha"
+                    },
+                    "soyad": {
+                        "type": "string",
+                        "example": "Muslu"
+                    },
+                    "ise_baslama_tarih": {
+                        "type": "string",
+                        "example": "2020-10-01"
+                    },
+                    "unvan": {
+                        "type": "string",
+                        "example": "Yönetici"
+                    },
+                    "adres": {
+                        "type": "string",
+                        "example": "Akasya mahallesi 123. sokak NO:12 D:3 Kadıköy"
+                    },
+                    "sehir": {
+                        "type": "string",
+                        "example": "İstanbul"
+                    },
+                    "ulke": {
+                        "type": "string",
+                        "example": "Türkiye"
+                    },
+                    "telefon": {
+                        "type": "string",
+                        "example": "532-123-4567"
+                    },
+                    "dogum_tarihi": {
+                        "type": "string",
+                        "example": "1998-10-01"
+                    },
+                    "maas": {
+                        "type": "number",
+                        "example": 5000
+                    },
+                    "cinsiyet": {
+                        "type": "string",
+                        "example": "E"
+                    }
+                }
+            },
+            "Urun": {
+                "required": [
+                    "urun_id",
+                    "urun_adi",
+                    "paket_miktar",
+                    "paket_fiyat",
+                    "stok"
+                ],
+                "type": "object",
+                "properties": {
+                    "urun_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 14
+                    },
+                    "urun_adi": {
+                        "type": "string",
+                        "example": "Zürafalı Kalem"
+                    },
+                    "paket_miktar": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 5
+                    },
+                    "paket_fiyat": {
+                        "type": "number",
+                        "example": 50
+                    },
+                    "stok": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 237
+                    }
+                }
+            },
+            "UrunWithoutID": {
+                "required": [
+                    "urun_adi",
+                    "paket_miktar",
+                    "paket_fiyat",
+                    "stok"
+                ],
+                "type": "object",
+                "properties": {
+                    "urun_adi": {
+                        "type": "string",
+                        "example": "Zürafalı Kalem"
+                    },
+                    "paket_miktar": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 5
+                    },
+                    "paket_fiyat": {
+                        "type": "number",
+                        "example": 50
+                    },
+                    "stok": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 237
+                    }
+                }
+            }
+        }
+    }
+}
